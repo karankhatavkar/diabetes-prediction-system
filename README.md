@@ -1,6 +1,6 @@
 # Diabetes Prediction Using K-Nearest Neighbors (KNN) Classification
 
-#### https://diabetes-prediction-app.onrender.com
+#### [https://diabetes-prediction-system-8fr0.onrender.com](https://diabetes-prediction-system-8fr0.onrender.com)
 
 **Approximate Loading Time: 60 Seconds**
 
