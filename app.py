@@ -31,5 +31,5 @@ def predict():
         print(error)
         return render_template('index.html', response = "Error : " + str(error))
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
