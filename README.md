@@ -159,7 +159,7 @@ if __name__ == '__main__':
 ### 1. Clone the repository:
 
 ```bash
-git clone https://github.com/karankhatavkar/diabetes-prediction.git
+git clone https://github.com/karankhatavkar/diabetes-prediction-system.git
 ```
 
 ### 2. Navigate to the project directory:
