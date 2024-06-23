@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Diabetes Prediction</title>
+        <link rel="stylesheet" type="text/css" href="static/styles.css" />
+        <link rel="icon" href="./static/favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        {% if response %}
+        <!-- print response in a popup -->
+        <!-- Design popup here -->
+        <div id="response-modal" class="modal" style="display: block">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                {% if response == '1' %}
+                <p>
+                    Based on the analysis, you are likely to be diabetic. Please
+                    consult a healthcare professional for further advice.
+                </p>
+                {% elif response == '0' %}
+                <p>
+                    Based on the analysis, you are unlikely to be diabetic.
+                    However, maintaining a healthy lifestyle is still important.
+                </p>
+                {% else %}
+                <p>
+                    There was an error in processing your response. Please try
+                    again or consult a healthcare professional for further
+                    advice.
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        <div style="padding: 15px">
+            <div class="container">
+                <h1>Diabetes Prediction</h1>
+                <form id="diabetes-form" action="/predict" method="post">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <br />
+
+                    <div id="pregnancy-section" style="display: none">
+                        <label
+                            for="pregnant"
+                            style="margin-top: 10px; margin-bottom: 10px"
+                            >Are you pregnant or have you ever been
+                            pregnant?</label
+                        >
+                        <div class="radio-group">
+                            <input
+                                type="radio"
+                                id="pregnant-no"
+                                name="pregnant"
+                                value="no"
+                            />
+                            <label for="pregnant-no">No</label>
+                        </div>
+                        <div class="radio-group">
+                            <input
+                                type="radio"
+                                id="pregnant-yes"
+                                name="pregnant"
+                                value="yes"
+                            />
+                            <label for="pregnant-yes">Yes</label>
+                        </div>
+                    </div>
+
+                    <div id="pregnancy-yes-section" style="display: none">
+                        <label
+                            for="num-pregnancies"
+                            style="padding-top: 30px; margin-bottom: 20px"
+                        >
+                            How many times have you been pregnant?
+                        </label>
+                        <input
+                            type="number"
+                            id="num-pregnancies"
+                            name="num-pregnancies"
+                            value="0"
+                            min="0"
+                            max="10"
+                            style="margin-top: 10px; margin-bottom: 20px"
+                        />
+                    </div>
+
+                    <label for="age">Age (Years):</label>
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        min="0"
+                        max="100"
+                        required
+                    /><br />
+
+                    <label for="BMI">BMI:</label>
+                    <input
+                        type="number"
+                        id="BMI"
+                        name="BMI"
+                        step=".01"
+                        min="14"
+                        max="70"
+                        required
+                    /><br />
+
+                    <label for="glucose">Glucose Level (mg/dl):</label>
+                    <input
+                        type="number"
+                        id="glucose"
+                        name="glucose"
+                        step=".01"
+                        min="50"
+                        max="250"
+                        required
+                    /><br />
+
+                    <button type="submit" value="Check">Predict</button>
+                </form>
+
+                <div id="result"></div>
+            </div>
+        </div>
+
+        <!-- Script for Result Display -->
+        <script>
+            var modal = document.getElementById("response-modal");
+            var span = document.getElementsByClassName("close")[0];
+
+            span.onclick = function () {
+                modal.style.display = "none";
+            };
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        </script>
+
+        <script>
+            const genderSelect = document.getElementById("gender");
+            const pregnancySection =
+                document.getElementById("pregnancy-section");
+            const pregnancySelectYes = document.getElementById("pregnant-yes");
+            const pregnancySelectNo = document.getElementById("pregnant-no");
+            const pregnancyYesSection = document.getElementById(
+                "pregnancy-yes-section"
+            );
+
+            genderSelect.addEventListener("change", function () {
+                if (genderSelect.value === "female") {
+                    pregnancySection.style.display = "block";
+                } else {
+                    pregnancySection.style.display = "none";
+                    pregnancyYesSection.style.display = "none";
+                }
+            });
+
+            pregnancySelectYes.addEventListener("change", function () {
+                if (pregnancyYesSection.style.display === "none") {
+                    pregnancyYesSection.style.display = "block";
+                }
+            });
+
+            pregnancySelectNo.addEventListener("change", function () {
+                if (pregnancyYesSection.style.display === "block") {
+                    pregnancyYesSection.style.display = "none";
+                }
+            });
+        </script>
+    </body>
+</html>
